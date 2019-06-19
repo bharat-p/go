@@ -1,5 +1,7 @@
 # A "go" short-link service
 
+#### Based on github.com/kellegous/go 
+
 ## Background
 The first time I encountered "go" links was at Google. Anyone on the corporate
 network could register a URL shortcut and it would redirect the user to the

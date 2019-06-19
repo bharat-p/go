@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/kellegous/go/context"
-	"github.com/kellegous/go/web"
+	"github.com/bharat-p/go/context"
+	"github.com/bharat-p/go/web"
 )
 
 var version string
