@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 
 	"github.com/kellegous/go/context"
@@ -31,6 +32,6 @@ func main() {
 		log.Panic(err)
 	}
 	defer ctx.Close()
-
+	fmt.Printf(fmt.Sprintf("Starting go-links server on: %s\n", *flagAddr))
 	log.Panic(web.ListenAndServe(*flagAddr, *flagAdmin, getVersion(), ctx))
 }

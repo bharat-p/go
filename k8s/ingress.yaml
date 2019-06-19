@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: golinks-ingress
+spec:
+  rules:
+    - host: go
+      http:
+        paths:
+          - backend:
+              serviceName: golinks
+              servicePort: 80

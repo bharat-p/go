@@ -1,0 +1,46 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: golinks-data-pv-claim
+spec:
+  storageClassName: hostpath
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: golinks-deployment
+spec:
+  selector:
+    matchLabels:
+      app: golinks
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: golinks
+    spec:
+      containers:
+        - name: golinks
+          image: host.docker.internal:5000/golinks
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 100m
+              memory: 64Mi
+            requests:
+              memory: 32Mi
+              cpu: 50m
+          volumeMounts:
+            - name: golinks-data
+              mountPath: /data
+      volumes:
+        - name: golinks-data
+          persistentVolumeClaim:
+            claimName: golinks-data-pv-claim

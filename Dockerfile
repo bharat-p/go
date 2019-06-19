@@ -1,17 +1,20 @@
-FROM golang:1.10
+FROM golang:1.12
 
 RUN apt-get update
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs closure-compiler
 RUN npm install -g typescript sass
 
-WORKDIR /go/src/github.com/kellegous/go
+RUN mkdir -p /home/appuser
+WORKDIR /home/appuser
 COPY . .
 RUN make ALL
-RUN go get -u -d github.com/kellegous/go
-RUN CGO_ENABLED=0 go build -v -o go .
+RUN CGO_ENABLED=0 go build -v -o go-links .
 
 FROM alpine:latest
 WORKDIR /root/
-COPY --from=0 /go/src/github.com/kellegous/go/go .
-CMD ["./go"]
+RUN apk add --no-cache tini
+# Tini is now available at /sbin/tini
+ENTRYPOINT ["/sbin/tini", "--"]
+COPY --from=0 /home/appuser/go-links .
+CMD ["./go-links", "--data=/data", "--addr=:80"]
