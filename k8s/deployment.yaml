@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: golinks
-          image: host.docker.internal:5000/golinks
+          image: bharat/golinks
           ports:
             - containerPort: 80
           resources:
