@@ -1,8 +1,14 @@
-module github.com/bharat-p/go
+module github.com/kellegous/go
 
-go 1.12
+go 1.13
 
 require (
-	github.com/jteeuwen/go-bindata v3.0.7+incompatible // indirect
+	cloud.google.com/go v0.38.0
+	github.com/bharat-p/go v0.0.0-20190801192636-9df7c29cf1fe // indirect
+	github.com/spf13/pflag v1.0.5
+	github.com/spf13/viper v1.5.0
 	github.com/syndtr/goleveldb v1.0.0
+	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
+	google.golang.org/api v0.14.0
+	google.golang.org/grpc v1.21.0
 )

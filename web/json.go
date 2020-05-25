@@ -5,13 +5,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/bharat-p/go/context"
+	"github.com/kellegous/go/internal"
 )
 
 // Used as an API response, this is a route with its associated shortcut name.
 type routeWithName struct {
-	Name string `json:"name"`
-	*context.Route
+	Name       string `json:"name"`
+	SourceHost string `json:"source_host"`
+	*internal.Route
 }
 
 // The response type for all API responses.
@@ -66,12 +67,18 @@ func writeJSONBackendError(w http.ResponseWriter, err error) {
 }
 
 // Encode the given named route as a msg and send it to the client.
-func writeJSONRoute(w http.ResponseWriter, name string, rt *context.Route) {
+func writeJSONRoute(w http.ResponseWriter, name string, rt *internal.Route, host string) {
+	r := routeWithName{
+		Name:  name,
+		Route: rt,
+	}
+
+	if host != "" {
+		r.SourceHost = host
+	}
+
 	writeJSON(w, &msgRoute{
-		Ok: true,
-		Route: &routeWithName{
-			Name:  name,
-			Route: rt,
-		},
+		Ok:    true,
+		Route: &r,
 	}, http.StatusOK)
 }
