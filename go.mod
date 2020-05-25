@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	cloud.google.com/go v0.38.0
+	github.com/bharat-p/go v0.0.0-20190801192636-9df7c29cf1fe // indirect
 	github.com/googleapis/gax-go v2.0.2+incompatible // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.5.0
